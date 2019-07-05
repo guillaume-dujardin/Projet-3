@@ -1,6 +1,3 @@
-from Map.py import *
-from Perso.py import *
-
 #Message d'introduction au jeu
 
 message_debut = "Vous incarner Mcgiver dans un labyrinthe ! Aider le � sortir indemne"
