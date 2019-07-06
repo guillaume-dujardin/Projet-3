@@ -1,4 +1,4 @@
-from Map import *
+from map import *
 from Perso import *
 
 #Message d'introduction au jeu
