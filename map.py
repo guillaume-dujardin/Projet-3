@@ -1,30 +1,27 @@
 class Map :
     #Labyrinthe niveau 1 (plan du labyrinthe)
     def __init__(self) :
-        self.affichage = affichage
+        self.map_array = []
 
+    # Create map with the fiven filename
+    # The created map is stored in map_arrau object variable
 
+    def create_map(self,filename):
+        try:
+            with open(filename, "r") as map_file:
+                for line in map_file:
+                    self.map_array.append(list(line.strip()))
+        except FileNotFoundError:
+            print("Couldn't open map file \"" + filename + "\"")
+            exit()
 
-labyrinthe = [
-"###############",
-"#######    ####",
-"#x      ##    #",
-"#### ####### ##",
-"#### ###      #",
-"#     ### ## ##",
-"##### ### ## ##",
-"##### ### ##  #",
-"##    ### ## ##",
-"## ###### ## ##",
-"## ###### #####",
-"##            #",
-"##### #########",
-"#####         #",
-"###########O###\n",]
+# Display map stored in Map class
 
-#Fonction d'affichage de notre labyrinthe
-def affiche_labyrinthe(labyrinthe) :
-    for ligne in labyrinthe :
-        print(ligne)
+    def display_map(self):
+        for line in self.map_array:
+            for character in line:
+                print(character, end="")
+            print()
+
 
 
