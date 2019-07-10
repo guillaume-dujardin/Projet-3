@@ -28,8 +28,36 @@ if __name__ == "__main__" :
 
     ## Example of interaction between character and map
     ## We move the character on map and we display the map
-    map = character.move_right(map)
-    map.display_map()
+    
+    continuer_game = True
+    player = ''
+    while continuer_game :
+        player = input("Voulez vous allez en bas en haut a droite a gauche ? : ")
+        if player == "R" :
+            os.system('cls')
+            map = character.move_right(map)    
+            map.display_map()
+        elif player == "L" :
+            os.system('cls')
+            map = character.move_left(map)    
+            map.display_map()
+        elif player == "D" :
+            os.system('cls')
+            map = character.move_down(map)
+            map.display_map()
+        elif player == "U" :
+            os.system('cls')
+            map = character.move_up(map)    
+            map.display_map()
+        else:
+            print("Entree invalide")
+        
+        character.victory(map)
+        
+        
+                        
+    
+    
     
     
     
