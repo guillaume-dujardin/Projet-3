@@ -20,6 +20,15 @@ class Character():
                 exit()
             elif "NON" :
                 continuer_game = True
+    
+    def check_treasure(self, pos_x, pos_y):
+        if map.map_array[pos_y][pos_x] == "$" :
+            self.tresors += 1
+            print("Vous avez dégoter un tresor ! Cela vous en fait ",self.tresors," bravo !")
+            if self.tresors == 3 :
+                print("Vous avez tout les tresors allez vite trouver le gardien pour l'endormir !!")
+            return True
+        return False
 
     def move_right(self, map):
         if map.map_array[self.y][self.x + 1] == "$" :
@@ -46,7 +55,7 @@ class Character():
             self.x -= 1
             map.map_array[self.y][self.x] = 'X'
 
-         if map.map_array[self.y][self.x - 1] != '#':
+         elif map.map_array[self.y][self.x - 1] != '#':
              map.map_array[self.y][self.x] = ' '
              self.x -= 1
              map.map_array[self.y][self.x] = 'X'
@@ -59,9 +68,9 @@ class Character():
             if self.tresors == 3 :
                 print("Vous avez tout les tresors allez vite trouver le gardien pour l'endormir !!")
             map.map_array[self.y][self.x] = ' '
-            self.x += 1
+            self.y += 1
             map.map_array[self.y][self.x] = 'X'
-        if map.map_array[self.y + 1][self.x] != '#':
+        elif map.map_array[self.y + 1][self.x] != '#':
             map.map_array[self.y][self.x] = ' '
             self.y += 1
             map.map_array[self.y][self.x] = 'X'
@@ -74,11 +83,14 @@ class Character():
             if self.tresors == 3 :
                 print("Vous avez tout les tresors allez vite trouver le gardien pour l'endormir !!")
             map.map_array[self.y][self.x] = ' '
-            self.x -= 1
+            self.y -= 1
             map.map_array[self.y][self.x] = 'X'
-        if map.map_array[self.y - 1][self.x] != '#':
+        elif map.map_array[self.y - 1][self.x] != '#':
             map.map_array[self.y][self.x] = ' '
             self.y -= 1
             map.map_array[self.y][self.x] = 'X'
         return map
+
+
+
         
