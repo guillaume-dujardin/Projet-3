@@ -1,3 +1,5 @@
+from random import *
+
 class Map :
     #Labyrinthe niveau 1 (plan du labyrinthe)
     def __init__(self) :
@@ -22,6 +24,8 @@ class Map :
             for character in line:
                 print(character, end="")
             print()
+
+    
 
 
 
