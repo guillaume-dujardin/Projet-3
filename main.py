@@ -5,12 +5,13 @@ from Character import Character
 
 #Message d'introduction au jeu
 
-message_debut = "Vous incarner Mcgiver dans un labyrinthe ! Aider le à sortir indemne"
-message_debut_modifier = message_debut.center(120,"*")
-print(message_debut_modifier)
 
 if __name__ == "__main__" :
+
     
+    message_debut = "Vous incarner Mcgiver dans un labyrinthe ! Aider le à sortir indemne"
+    message_debut_modifier = message_debut.center(120,"*")
+    print(message_debut_modifier)
    
     map = Map()
 
