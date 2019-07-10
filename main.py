@@ -14,8 +14,8 @@ if __name__ == "__main__" :
    
     map = Map()
 
-    map.create_map("map.txt")
-    map.display_map()
+    map.create_map("map.txt") # Création de la carte
+    map.display_map()   # Affichage de la carte
        
     character = Character()
     
@@ -25,15 +25,15 @@ if __name__ == "__main__" :
         player = input("Voulez vous allez en bas en haut a droite a gauche ? : ")
         if player == "R" :
             os.system('cls')
-            map = character.move_right(map)    
-            map.display_map()
+            map = character.move_right(map)    # Deplacement
+            map.display_map()                  # Affichage après déplacement
         elif player == "L" :
             os.system('cls')
             map = character.move_left(map)    
             map.display_map()
         elif player == "D" :
             os.system('cls')
-            map = character.move_down(map)
+            map = character.move_down(map) 
             map.display_map()
         elif player == "U" :
             os.system('cls')
@@ -42,8 +42,8 @@ if __name__ == "__main__" :
         else:
             print("On avancera jamais avec",player)
         
-        if character.victory(map):
-            continuer_game = False
+        if character.victory(map):      # Non concluant
+            continuer_game = False      # Non concluant
         
         
                         
