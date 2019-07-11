@@ -16,7 +16,7 @@ class Map :
 
 
     def display_map(self):
-        for line in self.map_array:
+        for line in self.map_array:            
             for character in line:        #Affichage du labyrinthe
                 print(character, end="")
             print()
