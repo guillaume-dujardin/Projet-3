@@ -21,6 +21,26 @@ class Map :
                 print(character, end="")
             print()
 
+    def is_passage(self, x, y):
+        if map.map_array[y][x] == " " :
+            print("cet acces est libre")
+            return bool
+
+    def is_wall(self,x, y):
+        if map.map_array[y][x] == "#" :
+            print("C'est un mur")
+            return bool
+
+    def is_treasure(self,x, y):
+        if map.map_array[y][x] == "$":
+            print("C'est un tresors")
+            return bool
+    
+    def is_gardian(self,x, y):
+        if map.map_array[y][x] == "O" :
+            print("C'est un gardien")
+            return bool
+    
     
 
 
