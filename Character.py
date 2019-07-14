@@ -45,9 +45,7 @@ class Character():
         map.map_array[self.y][self.x] = ' '
         self.y += 1
         map.map_array[self.y][self.x] = 'X'
-        
-      
-
+     
     def move_right(self, map):  
         self.victory(map,self.y,self.x + 1)
         if self.check_treasure(map,self.y,self.x + 1) == True :
