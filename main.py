@@ -4,10 +4,6 @@ from Map import Map
 from Character import Character
 
 #Message d'introduction au jeu
-
-
-
-
     
 class Game :
 
@@ -64,27 +60,17 @@ class Game :
             elif quitter == "NON" :
                 continuer_game = True
 
-
 # Ajouter 3 tresors aleatoirement dans le labyrinthe a chaque début de jeu
 # Permettre au joueur de recommencer la partie
 # Donner un nom aux objets different ramasser dans le labyrinthe
 # Recuperer la saisi utilisateur sur les touches directionnel pour directement faire une action
 
 #alors tranchons pour map.py, on n'utilise pas de majuscule dans les noms de modules
-#Pour le placement aléatoire, tu peux p.ex. utiliser random.sample() directement avec
+# Pour le placement aléatoire, tu peux peux. utiliser random.sample() directement avec
 # ta liste de positions des chemins. Cela tirera au sort des positions sans répétition 
 # dans ta liste. Si tu n'as pas de liste de positions des chemins, tu peux en construire 
 # une à la lecture du fichier décrivant la structure de labyrinthe.
                     
-                
-        
-                   
-
 parti_une = Game()
 parti_une.jouer()
                        
-    
-    
-    
-    
-    
