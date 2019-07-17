@@ -12,11 +12,11 @@ class Character():
 
     def victory(self,map,pos_y,pos_x):
         if map.map_array[pos_y][pos_x] == "O" and self.tresors == 3 :
-            print("Gardien : Zzzz.. Zzzz.. Zzzz..  Je peut sortir du labyrinthe..")
-            exit()
-        elif map.map_array[self.y][self.x] == "O" and self.tresors != 3 :
+            print("Gardien : Zzzz.. Zzzz.. Zzzz..  Je peut sortir du labyrinthe..")            
+        elif map.map_array[pos_y][pos_x] == "O" and self.tresors != 3 :
             print("Tu ne peut pas passer sans avoir tout les objets")
-                        
+            return True
+
     def check_treasure(self, map,pos_y,pos_x):
         if map.map_array[pos_y][pos_x] == "$" :
             self.tresors += 1
@@ -47,7 +47,6 @@ class Character():
         map.map_array[self.y][self.x] = 'X'
      
     def move_right(self, map):  
-        self.victory(map,self.y,self.x + 1)
         if self.check_treasure(map,self.y,self.x + 1) == True :
             self.move_r(map)
         elif map.map_array[self.y][self.x + 1] != '#':
