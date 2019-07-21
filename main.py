@@ -12,10 +12,10 @@ from Game import Game
 # ta liste de positions des chemins. Cela tirera au sort des positions sans repetition 
 # dans ta liste. Si tu n'as pas de liste de positions des chemins, tu peux en construire 
 # une a la lecture du fichier decrivant la structure de labyrinthe.
-           
-def play():   
-    parti_une = Game()
-    parti_une.jouer()
+
+def launching():   
+    first_game = Game()
+    first_game.play()
                    
 if __name__ == "__main__" :
-    play()
+    launching()
