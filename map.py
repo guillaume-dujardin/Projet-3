@@ -4,7 +4,7 @@ class Map :
     
     def __init__(self) :
         self.map_array = []
-        self.lab = []
+        self.lab = []        
 
     def create_map(self,filename):
         try:
