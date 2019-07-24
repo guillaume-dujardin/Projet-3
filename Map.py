@@ -4,7 +4,11 @@ class Map :
     
     def __init__(self) :
         self.map_array = []
-        self.lab = []        
+        self.wall = []
+        self.lab = []
+        self.position_Mc = (1,1)
+        self.position_gardien = (1,1)
+        self.objects_position = []
 
     def create_map(self,filename):
         try:
@@ -15,25 +19,28 @@ class Map :
         except FileNotFoundError:
             print("Couldn't open map file \"" + filename + "\"")
             exit()    
-    
 
-    def path_map_finder(self) :
+    def espace_vide(self) :
         for y, line in enumerate(self.map_array) :
-            for x, character in enumerate(line) :
-                if character == " " :
+            for x, column in enumerate(line) :                    
+                if column == " " :
                     self.lab.append((x,y))
-    
-    def pos_objet(self):
-        i = 0
-        self.path_map_finder()
-        while i < 3 :
-            pos = sample(self.lab,1)
-            self.map_array[pos] = "$"
-           
-    
+                    print(self.lab(x,y))
+
+    def objects_positions(self):
+        object_position = sample(self.lab,3)
+
     def display_map(self):
         i = 0
-        for line in self.map_array:            
-            for character in line:
-                print(character, end="")                
-            print()
+        for line in range(15):
+            for column in range(15):
+                if (line, column) in self.position_Mc :
+                    print("X")
+                elif (line, column) in self.position_gardien :
+                    print("O")
+                elif (line, column) in self.objects_positions() :
+                    print("$")
+                elif (line, column) in self.espace_vide :
+                    print(" ")
+                else:
+                    print("#")
