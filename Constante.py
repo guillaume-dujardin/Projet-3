@@ -1,5 +1,0 @@
-picture_background = "images/decor.jpg"
-picture_home = "images/accueil.jpg"
-picture_Mc = "images/MacGyver.png"
-picture_guardian = "images/Gardien.png"
-picture_wall = "images/mur.jpg"
