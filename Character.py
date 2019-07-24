@@ -1,8 +1,6 @@
 import os
 from Map import Map
-import pygame
-from pygame.locals import *
-from Constante import *
+from Constant import *
 
 class Character():
     
