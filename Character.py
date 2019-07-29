@@ -1,5 +1,9 @@
+from typing import List, Any
 import os
 from Map import Map
+import pygame
+from pygame.locals import *
+from Game import *
 from Constant import *
 
 class Character():
@@ -8,78 +12,58 @@ class Character():
         
         self.line = 1
         self.column = 1
-        self.tresors = 0
-        
-    def victory(self,map,pos_column,pos_line):            
-        if map.map_array[pos_column][pos_line] == "O" and self.tresors != 3 :
-            return True
+        self.x = 1
+        self.y = 1
 
-    def check_treasure(self, map,pos_column,pos_line):
-        if map.map_array[pos_column][pos_line] == "$" :
-            self.tresors += 1
-            return True
-        return False
+    def initial(self, map) :
+        self.position = pygame.image.load(IMAGE_ICONE).convert_alpha()
+        self.direction = self.position
+        self.map = map
 
-    def move_r(self, map):
-        map.map_array[self.column][self.line] = ' '
-        self.line += 1
-        map.map_array[self.column][self.line] = 'X'
+    def move(self, map, direction) :
 
-    def move_l(self, map):
-        map.map_array[self.column][self.line] = ' '
-        self.line -= 1
-        map.map_array[self.column][self.line] = 'X'
+        self.initial(map)
 
-    def move_u(self, map):
-        map.map_array[self.column][self.line] = ' '
-        self.column -= 1
-        map.map_array[self.column][self.line] = 'X'
+        if direction == 'right' :
+            if self.line < (nombre_de_carre - 1) :
+                if self.map.map_array[self.column][self.line + 1] != '#' :
+                    map.map_array[self.column][self.line] = ' '
+                    self.line += 1
+                    map.map_array[self.column][self.line] = 'X'
+                    self.x = self.line * taille_carre
+            self.direction = self.position
 
-    def move_d(self, map):
-        map.map_array[self.column][self.line] = ' '
-        self.column += 1
-        map.map_array[self.column][self.line] = 'X'
-     
-    def move_right(self, map):  
-        if self.check_treasure(map,self.column,self.line + 1) == True :
-            self.move_r(map)
-        elif self.victory(map,self.column,self.line +1) :
-            pass
-        elif map.map_array[self.column][self.line + 1] != '#':
-            self.move_r(map)
-        else :
-            pass
-        return map
+        if direction == 'left' :
+            if self.line > 0 :
+                if self.map.map_array[self.column][self.line - 1] != '#' :
+                    map.map_array[self.column][self.line] = ' '
+                    self.line -= 1
+                    map.map_array[self.column][self.line] = 'X'
+                    self.x = self.line * taille_carre
+            self.direction = self.position
 
-    def move_left(self, map):
-        if self.check_treasure(map,self.column,self.line - 1) == True :
-            self.move_l(map)
-        elif self.victory(map,self.column,self.line - 1) :
-            pass
-        elif map.map_array[self.column][self.line - 1] != '#':
-            self.move_l(map)
-        else :
-            pass
-        return map
+        if direction == 'up' :
+            if self.column > 0 :
+                if self.map.map_array[self.column - 1][self.line] != '#' :
+                    map.map_array[self.column][self.line] = ' '
+                    self.column -= 1
+                    map.map_array[self.column][self.line] = 'X'
+                    self.x = self.line * taille_carre
+            self.direction = self.position
 
-    def move_down(self, map):
-        if self.check_treasure(map,self.column + 1,self.line) == True :
-            self.move_d(map)
-        elif self.victory(map,self.column + 1,self.line) :
-            pass
-        elif map.map_array[self.column + 1][self.line] != '#':
-            self.move_d(map)
-        else :
-            pass
-        return map
+        if direction == 'down' :
+            if self.column < (nombre_de_carre - 1) :
+                if self.map.map_array[self.column + 1][self.line] != '#' :
+                    map.map_array[self.column][self.line] = ' '
+                    self.column += 1
+                    map.map_array[self.column][self.line] = 'X'
+                    self.x = self.line * taille_carre
+            self.direction = self.position
 
-    def move_up(self, map):
-        if self.check_treasure(map,self.column - 1,self.line) == True :
-            self.move_u(map)
-        elif self.victory(map,self.column - 1,self.line) :
-            pass
-        elif map.map_array[self.column - 1][self.line] != '#':
-            self.move_u(map)
-        else :
-            pass
-        return map
+        current_item_in_box = self.map.map_array[self.column][self.line]
+        if current_item_in_box == 'e' or current_item_in_box == 's' or current_item_in_box == 'p' :
+            self.map.score += 1
+            self.map.remove_Item(self.column, self.line)
+    
+   
+    
