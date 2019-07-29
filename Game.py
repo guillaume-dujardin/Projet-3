@@ -1,10 +1,10 @@
 import os 
 from Map import Map
 from Character import Character
-import time
 from Constant import *
-
-
+import time
+import pygame
+from pygame.locals import *
 
 class Game :
 
@@ -14,45 +14,56 @@ class Game :
     def init_game(self):
         self.character = Character()
         self.map = Map()        
-        self.map.create_map("map.txt")
+        self.map.create_map("ressources/map.txt")
 
+    def initialisation(self) :
+        pygame.init()
+        self.window = pygame.display.set_mode((cote_fenetre,cote_fenetre))
+        self.fond = pygame.image.load(IMAGE_FOND).convert()
+        self.window.blit(self.fond,(0,0)) # affiche le fond
+        self.map.show(self.window) # affiche les elements sur le fond
+        pygame.display.flip()
         
     def play(self):      
-           
             self.init_game()
-            continue_game = 'O'
-            while continue_game != 'N' :                
-                game = True                
-                start_message = "Vous incarner Mcgiver dans un labyrinthe ! Aider le a sortir indemne"
-                start_message_edit = start_message.center(120,"*")
-                print(start_message_edit)
-                
-                self.map.display_map()
-                
-                while game == True :
-                    player = ""
-                    player = input("L,D,R,U : ")
 
-                    if player == "R" :                       
-                        self.map = self.character.move_right(self.map)                            
-                        if self.map.map_array[self.character.column][self.character.line + 1] == "O" and self.character.tresors == 3 :                                
-                            game = False                         
-                    elif player == "L" :
-                        self.map = self.character.move_left(self.map)
-                        if self.map.map_array[self.character.column][self.character.line - 1] == "O" and self.character.tresors == 3 :
-                            game = False
-                    elif player == "D" :
-                        self.map = self.character.move_down(self.map)
-                        if self.map.map_array[self.character.column + 1][self.character.line] == "O" and self.character.tresors == 3 :                               
-                            game = False
-                    elif player == "U" :
-                        self.map = self.character.move_up(self.map)    
-                        if self.map.map_array[self.character.column - 1][self.character.line] == "O" and self.character.tresors == 3 :                                
-                            game = False
-                    
-                    
-                    os.system('cls')
-                    self.map.display_map()
+            continuer_game = 'M'
+            while continuer_game != 'N' :
+                self.map.place_Items()
+                self.initialisation()
+                self.map.display_map()
+                game = True
+                while game == True :
+
+                    for event in pygame.event.get() :
+                        if event.type == QUIT :
+                            exit()
+                        if event.type == KEYDOWN :
+
+                             if event.key == K_ESCAPE :
+                                 exit()
+                            
+                             if event.key == pygame.K_RIGHT :
+                                 self.character.move(self.map, 'right')
+                             elif event.key == pygame.K_LEFT :
+                                 self.character.move(self.map, 'left')
+                             elif event.key == pygame.K_DOWN :
+                                 self.character.move(self.map, 'down')
+                             elif event.key == pygame.K_UP :
+                                 self.character.move(self.map, 'up')
+
+                             self.map.display_map()
+                             self.map.show(self.window)
+                             pygame.display.flip()
+
+                        if self.map.map_array[self.character.column][self.character.line] == 'O' and self.map.score == 3 :
+                            exit()
+                            self.map.to_Win(self.window)
+                        if self.map.map_array[self.character.column][self.character.line] == 'O' and self.map.score < 3 :
+                            exit()
+                            self.map.to_Lose(self.window)
+                        
+            
                     
                     
 
