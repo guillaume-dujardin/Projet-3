@@ -13,9 +13,9 @@ from Game import Game
 # dans ta liste. Si tu n'as pas de liste de positions des chemins, tu peux en construire 
 # une a la lecture du fichier decrivant la structure de labyrinthe.
 
-def launching():   
+def launching(): # function to start the game
     first_game = Game()
     first_game.play()
                    
 if __name__ == "__main__" :
-    launching()
+    launching() # call the function to launch the program
