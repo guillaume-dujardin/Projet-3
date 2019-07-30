@@ -18,33 +18,33 @@ class Game :
 
     def initialisation(self) :
         pygame.init()
-        self.window = pygame.display.set_mode((cote_fenetre,cote_fenetre))
-        self.fond = pygame.image.load(IMAGE_FOND).convert()
-        self.window.blit(self.fond,(0,0)) # affiche le fond
-        self.map.show(self.window) # affiche les elements sur le fond
-        pygame.display.flip()
+        self.window = pygame.display.set_mode((side_window,side_window))
+        self.background = pygame.image.load(IMAGE_FOND).convert()
+        self.window.blit(self.background,(0,0)) # poster the background
+        self.map.show(self.window) # allows the display of all the elements
+        pygame.display.flip() # show all
         
     def play(self):      
             self.init_game()
 
             continuer_game = 'M'
             while continuer_game != 'N' :
-                self.map.place_Items()
-                self.initialisation()
-                self.map.display_map()
+                self.map.place_Items() # place the objects in the labyrinth
+                self.initialisation() # intializes the pygame values
+                self.map.display_map() # show the map in console
                 game = True
                 while game == True :
 
-                    for event in pygame.event.get() :
+                    for event in pygame.event.get() : # for each pygame event
                         if event.type == QUIT :
-                            exit()
+                            exit() # function that leaves the program
                         if event.type == KEYDOWN :
 
                              if event.key == K_ESCAPE :
                                  exit()
                             
-                             if event.key == pygame.K_RIGHT :
-                                 self.character.move(self.map, 'right')
+                             if event.key == pygame.K_RIGHT : # if the event is the right directional key
+                                 self.character.move(self.map, 'right') # use the move function for moving
                              elif event.key == pygame.K_LEFT :
                                  self.character.move(self.map, 'left')
                              elif event.key == pygame.K_DOWN :
@@ -52,13 +52,13 @@ class Game :
                              elif event.key == pygame.K_UP :
                                  self.character.move(self.map, 'up')
 
-                             self.map.display_map()
-                             self.map.show(self.window)
-                             pygame.display.flip()
+                             self.map.display_map() # show the map for each move
+                             self.map.show(self.window) # allows the display of each element
+                             pygame.display.flip() # show all
 
                         if self.map.map_array[self.character.column][self.character.line] == 'O' and self.map.score == 3 :
-                            exit()
-                            self.map.to_Win(self.window)
+                            exit() # if the location is equal to "O" and the objects equal to three
+                            self.map.to_Win(self.window) # apply the function to_win
                         if self.map.map_array[self.character.column][self.character.line] == 'O' and self.map.score < 3 :
                             exit()
                             self.map.to_Lose(self.window)
