@@ -23,12 +23,23 @@ class Game :
         self.window.blit(self.background,(0,0)) # poster the background
         self.map.show(self.window) # allows the display of all the elements
         pygame.display.flip() # show all
+    
         
+    def win(self) :
+        self.map.to_Win(self.window)
+        pygame.display.flip()
+        time.sleep(2)
+
+    def loose(self) :
+        self.map.to_Lose(self.window)
+        pygame.display.flip()
+        time.sleep(2)
+
     def play(self):      
             self.init_game()
 
-            continue_game = 'M'
-            while continue_game != 'N' :
+            continue_game = True
+            while continue_game :
                 self.map.place_Items() # place the objects in the labyrinth
                 self.initialisation() # intializes the pygame values
                 self.map.display_map() # show the map in console
@@ -44,42 +55,62 @@ class Game :
                                  exit()
                             
                              if event.key == pygame.K_RIGHT : # if the event is the right directional key
-                                 self.character.move(self.map, 'right') # use the move function for moving
+                                 self.character.move(self.map, 'right', self.window) # use the move function for moving
+                                 if self.character.verif_win(self.character.column,self.character.line + 1) == True :
+                                     self.win()
+                                     game = False
+                                 elif self.character.verif_loose(self.character.column,self.character.line + 1) == True :
+                                     self.loose()
+                                     game = False
+                                     
                              elif event.key == pygame.K_LEFT :
-                                 self.character.move(self.map, 'left')
+                                 self.character.move(self.map, 'left', self.window)
+                                 if self.character.verif_win(self.character.column,self.character.line - 1) == True :
+                                     self.win()
+                                     game = False
+                                 elif self.character.verif_loose(self.character.column,self.character.line - 1) == True :
+                                     self.loose()
+                                     game = False                                                         
+                                 
                              elif event.key == pygame.K_DOWN :
-                                 self.character.move(self.map, 'down')
+                                 self.character.move(self.map, 'down', self.window)
+                                 if self.character.verif_win(self.character.column - 1,self.character.line) == True :
+                                     self.win()
+                                     game = False
+                                 elif self.character.verif_loose(self.character.column - 1,self.character.line) == True :
+                                     self.loose()
+                                     game = False                                                              
+                                 
                              elif event.key == pygame.K_UP :
-                                 self.character.move(self.map, 'up')
-
+                                 self.character.move(self.map, 'up', self.window)
+                                 if self.character.verif_win(self.character.column + 1,self.character.line) == True :
+                                     self.win()
+                                     game = False
+                                 elif self.character.verif_loose(self.character.column + 1,self.character.line) == True :
+                                     self.loose()
+                                     game = False                                                                 
+                                
                              self.map.display_map() # show the map for each move
                              self.map.show(self.window) # allows the display of each element
                              pygame.display.flip() # show all
-
-                        if self.map.map_array[self.character.column][self.character.line] == 'O' and self.map.score == 3 :
-                            exit() # if the location is equal to "O" and the objects equal to three
-                            self.map.to_Win(self.window) # apply the function to_win
-                            game = False
-                        if self.map.map_array[self.character.column][self.character.line] == 'O' and self.map.score < 3 :
-                            exit()
-                            self.map.to_Lose(self.window)
-                            game = False
-            
-                    
-                    
-
+                                                    
                 while game == False :
                     self.home = pygame.image.load(IMAGE_HOME).convert()
                     self.window.blit(self.home,(0,0))
-                    myfont = pygame.font.SysFont("monospace", 22)
+                    myfont = pygame.font.SysFont("comicsansms", 40)
                     self.score_text = myfont.render(" Start again ? ", 1, (0, 0, 255))
-                    self.home = pygame.image.load(IMAGE_HOME)
+                    self.window.blit(self.score_text, (100, 80))
+                    self.score_text = myfont.render("F1 for yes F2 for no", 1 ,(0, 0, 225))
+                    self.window.blit(self.score_text, (35, 130))
+                    pygame.display.flip()
                     for event in pygame.event.get() :
                         if event.type == KEYDOWN :
                             if event.key == K_F1 :
-                                continue_game = True
+                                self.init_game()
+                                continue_game = True                                
+                                game = True
                             elif event.key == K_F2 :
-                                exit()                        
+                                exit()
                         os.system('cls')
                     
                    
