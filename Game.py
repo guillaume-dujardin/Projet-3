@@ -19,7 +19,7 @@ class Game :
     def initialisation(self) :
         pygame.init()
         self.window = pygame.display.set_mode((side_window,side_window))
-        self.background = pygame.image.load(IMAGE_FOND).convert()
+        self.background = pygame.image.load(IMAGE_BACKGROUND).convert()
         self.window.blit(self.background,(0,0)) # poster the background
         self.map.show(self.window) # allows the display of all the elements
         pygame.display.flip() # show all
@@ -27,8 +27,8 @@ class Game :
     def play(self):      
             self.init_game()
 
-            continuer_game = 'M'
-            while continuer_game != 'N' :
+            continue_game = 'M'
+            while continue_game != 'N' :
                 self.map.place_Items() # place the objects in the labyrinth
                 self.initialisation() # intializes the pygame values
                 self.map.display_map() # show the map in console
@@ -59,22 +59,27 @@ class Game :
                         if self.map.map_array[self.character.column][self.character.line] == 'O' and self.map.score == 3 :
                             exit() # if the location is equal to "O" and the objects equal to three
                             self.map.to_Win(self.window) # apply the function to_win
+                            game = False
                         if self.map.map_array[self.character.column][self.character.line] == 'O' and self.map.score < 3 :
                             exit()
                             self.map.to_Lose(self.window)
-                        
+                            game = False
             
                     
                     
 
                 while game == False :
-                    continue_game = input("Voulez vous recommencer la partie (OUI/NON) ? : ") 
-                    if continue_game == "OUI" or continue_game == "oui" :                       
-                        game = True
-                        self.init_game()
+                    self.home = pygame.image.load(IMAGE_HOME).convert()
+                    self.window.blit(self.home,(0,0))
+                    myfont = pygame.font.SysFont("monospace", 22)
+                    self.score_text = myfont.render(" Start again ? ", 1, (0, 0, 255))
+                    self.home = pygame.image.load(IMAGE_HOME)
+                    for event in pygame.event.get() :
+                        if event.type == KEYDOWN :
+                            if event.key == K_F1 :
+                                continue_game = True
+                            elif event.key == K_F2 :
+                                exit()                        
                         os.system('cls')
-                    elif continue_game == "NON" or continue_game == "non" :
-                        exit()
-                    else :
-                        continue
-
+                    
+                   
