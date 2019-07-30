@@ -22,12 +22,12 @@ class Map :
             exit()
 
     def show(self,window) : # function that sets each photo to a variable
-        background = pygame.image.load(IMAGE_FOND).convert()
+        background = pygame.image.load(IMAGE_BACKGROUND).convert()
         wall = pygame.image.load(IMAGE_WALL).convert()
-        finish = pygame.image.load(IMAGE_GARDIEN).convert_alpha()
+        finish = pygame.image.load(IMAGE_GUARDIAN).convert_alpha()
         ether = pygame.image.load(IMAGE_ETHER).convert()
-        needle = pygame.image.load(IMAGE_AIGUILLE).convert()
-        plastic = pygame.image.load(IMAGE_TUBE_PLASTIQUE).convert()
+        needle = pygame.image.load(IMAGE_NEEDLE).convert()
+        plastic = pygame.image.load(IMAGE_PLASTIC_TUBE).convert()
         icone = pygame.image.load(IMAGE_ICONE).convert()
 
         if (self.score <= 3) : # if the score is less than or equal to 3
