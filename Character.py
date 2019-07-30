@@ -1,6 +1,6 @@
 from typing import List, Any
 import os
-from Map import Map
+import Map
 import pygame
 from pygame.locals import *
 from Game import *
@@ -20,17 +20,17 @@ class Character():
         self.direction = self.position
         self.map = map
 
-    def move(self, map, direction) :
+    def move(self, map, direction) : # Displacement function
 
         self.initial(map)
 
-        if direction == 'right' :
-            if self.line < (nombre_de_carre - 1) :
-                if self.map.map_array[self.column][self.line + 1] != '#' :
-                    map.map_array[self.column][self.line] = ' '
+        if direction == 'right' : # if the direction argument is 'right'
+            if self.line < (number_of_square - 1) : # if line is less than the number of squares -1
+                if self.map.map_array[self.column][self.line + 1] != '#' : # if the character's position in the maze is different from '#'
+                    map.map_array[self.column][self.line] = ' ' # the space becomes empty
                     self.line += 1
-                    map.map_array[self.column][self.line] = 'X'
-                    self.x = self.line * taille_carre
+                    map.map_array[self.column][self.line] = 'X' # the new location becomes the character
+                    self.x = self.line * square_size
             self.direction = self.position
 
         if direction == 'left' :
@@ -39,7 +39,7 @@ class Character():
                     map.map_array[self.column][self.line] = ' '
                     self.line -= 1
                     map.map_array[self.column][self.line] = 'X'
-                    self.x = self.line * taille_carre
+                    self.x = self.line * square_size
             self.direction = self.position
 
         if direction == 'up' :
@@ -48,16 +48,16 @@ class Character():
                     map.map_array[self.column][self.line] = ' '
                     self.column -= 1
                     map.map_array[self.column][self.line] = 'X'
-                    self.x = self.line * taille_carre
+                    self.x = self.line * square_size
             self.direction = self.position
 
         if direction == 'down' :
-            if self.column < (nombre_de_carre - 1) :
+            if self.column < (number_of_square - 1) :
                 if self.map.map_array[self.column + 1][self.line] != '#' :
                     map.map_array[self.column][self.line] = ' '
                     self.column += 1
                     map.map_array[self.column][self.line] = 'X'
-                    self.x = self.line * taille_carre
+                    self.x = self.line * square_size
             self.direction = self.position
 
         current_item_in_box = self.map.map_array[self.column][self.line]
