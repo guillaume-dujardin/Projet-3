@@ -94,10 +94,8 @@ class Map :
         myfont = pygame.font.SysFont("comicsansms", 40)
         self.score_text = myfont.render("Victory!!", 1, (0, 0, 255))
         window.blit(self.score_text, (130, 180))
-        
 
     def to_Lose(self, window) : # function that displays the score and "you are dead"
         myfont = pygame.font.SysFont("comicsansms", 40)
         self.score_text = myfont.render("You are dead !", 1, (0, 0, 255))
         window.blit(self.score_text, (110, 180))
-        
