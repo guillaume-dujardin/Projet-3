@@ -50,7 +50,7 @@ class Character():
                 return AttributeError
        
     def verif_win(self,pos_y,pos_x) : 
-        if self.map.map_array[pos_y][pos_x] == 'O' and self.map.score == 3 : 
+        if self.map.map_array[pos_y][pos_x] == 'O' and self.map.score == 3 :            
             return True 
        
     def verif_loose(self,pos_y,pos_x): 
