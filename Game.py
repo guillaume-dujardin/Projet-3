@@ -71,7 +71,7 @@ class Game :
         self.window.blit(self.blue_button,(220,380))
         myfont = pygame.font.SysFont("comicsansms", 40)
         self.score_text = myfont.render("RETOUR", 1 ,(0, 0, 225))
-        self.window.blit(self.score_text, (300, 300))
+        self.window.blit(self.score_text, (250, 385))
         pygame.display.flip()
 
     def return_game(self,window) :
@@ -90,22 +90,25 @@ class Game :
         self.init_game()
         self.initialisation() # intializes the pygame values
         continue_game = False
-        
+        regle = False
         while continue_game == False :
-            regle = False
             self.display_home(self.window)
             for event in pygame.event.get() :
-                if event.type == MOUSEBUTTONUP and event.button == 1 and event.pos[0] < 330 and event.pos[1] < 370 and event.pos[0] > 110 and event.pos[1] > 300 :
-                    continue_game = True
-                elif event.type == MOUSEBUTTONUP and event.button == 1 and event.pos[0] < 330 and event.pos[1] < 100 and event.pos[0] > 110 and event.pos[1] > 200 :
-                    regle = True
-                else :
-                    continue
-        while regle == True :
-            self.display_rule(self.window)
-            for event in pygame.event.get() :
-                if event.type == MOUSEBUTTONUP and event.button == 1 and event.pos[0] < 330 and event.pos[1] < 370 and event.pos[0] > 110 and event.pos[1] > 300 :
-                    continue_game = False
+                if event.type == MOUSEBUTTONUP :
+                    if event.button == 1 and event.pos[0] < 340 and event.pos[1] < 370 and event.pos[0] > 110 and event.pos[1] > 300 :
+                        continue_game = True
+                    elif event.button == 1 and event.pos[0] < 340 and event.pos[1] < 265 and event.pos[0] > 110 and event.pos[1] > 200 :
+                        regle = True
+                    else :
+                        continue
+            while regle == True :
+                self.display_rule(self.window)
+                for event in pygame.event.get() :
+                    if event.type == MOUSEBUTTONUP :
+                        if event.button == 1 and event.pos[0] < 450 and event.pos[1] < 450 and event.pos[0] > 220 and event.pos[1] > 380 :
+                            regle = False                            
+                        else :
+                            continue
                           
         while continue_game :
             self.map.place_Items() # place the objects in the labyrinth
