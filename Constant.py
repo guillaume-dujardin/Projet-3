@@ -9,7 +9,7 @@ IMAGE_RULE_OF_THE_GAME = "ressources/Rule_of_the_game.png"
 IMAGE_HOME = "ressources/home.jpg"
 IMAGE_ICONE = "ressources/MacGyver.png" # IMAGE_ICONE = the location of the photo
 IMAGE_BACKGROUND = "ressources/background.png"
-IMAGE_WALL = "ressources/wall.gif"
+IMAGE_WALL = "ressources/wall.png"
 IMAGE_ETHER = "ressources/ether.png"
 IMAGE_NEEDLE = "ressources/needle.jpg"
 IMAGE_PLASTIC_TUBE = "ressources/plastic_tube.png"
