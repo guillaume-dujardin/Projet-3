@@ -1,5 +1,5 @@
 import os 
-from Map import Map
+from Map import *
 from Character import *
 from Constant import *
 import time
@@ -23,15 +23,6 @@ class Game :
         self.window.blit(self.background,(0,0)) # poster the background
         self.map.show(self.window) # allows the display of all the elements
         pygame.display.flip() # show all
-    
-    def key_right(self) :                           
-        self.character.move(self.map, 'right', self.window) # use the move function for moving
-        if self.character.verif_win(self.character.column,self.character.line + 1) == True :
-            self.win()
-            game = False
-        elif self.character.verif_loose(self.character.column,self.character.line + 1) == True :
-            self.loose()
-            game = False
         
     def win(self) :
         self.map.to_Win(self.window)
@@ -56,35 +47,41 @@ class Game :
     def display_home(self,window) :
         self.first_home = pygame.image.load(IMAGE_FIRST_HOME).convert()
         self.window.blit(self.first_home,(0,0))
-        self.play_button = pygame.image.load(IMAGE_PLAY_BUTTON).convert()
+        self.play_button = pygame.image.load(IMAGE_RULES_BUTTON).convert()
         self.window.blit(self.play_button,(110,300))
-        self.blue_button = pygame.image.load(IMAGE_BLUE_BUTTON).convert()
+        self.blue_button = pygame.image.load(IMAGE_RULES_BUTTON).convert()
         self.window.blit(self.blue_button,(110,200))
-        myfont = pygame.font.SysFont("comicsansms", 25)
-        self.score_text = myfont.render("REGLES DU JEU", 1 ,(0, 0, 225))
-        self.window.blit(self.score_text, (125, 216))
+        self.exit_button = pygame.image.load(IMAGE_EXIT_BUTTON).convert()
+        self.window.blit(self.exit_button,(0,410))
+        myfont = pygame.font.SysFont("monospace",22)
+        self.score_text = myfont.render("EXIT", 1 ,(255, 255, 255))
+        self.window.blit(self.score_text, (20, 420))
+        myfont = pygame.font.SysFont("monospace", 27)
+        self.score_text = myfont.render("GAME RULES", 1 ,(255, 255, 255))
+        self.window.blit(self.score_text, (140, 216))
+        self.score_text = myfont.render("PLAY", 1 ,(255, 255, 255))
+        self.window.blit(self.score_text, (187, 318))
         pygame.display.flip()
+
     def display_rule(self,window):
         self.rule = pygame.image.load(IMAGE_RULE_OF_THE_GAME).convert()
         self.window.blit(self.rule,(0,0))
-        self.blue_button = pygame.image.load(IMAGE_BLUE_BUTTON).convert()
-        self.window.blit(self.blue_button,(220,380))
-        myfont = pygame.font.SysFont("comicsansms", 40)
-        self.score_text = myfont.render("RETOUR", 1 ,(0, 0, 225))
-        self.window.blit(self.score_text, (250, 385))
+        self.blue_button = pygame.image.load(IMAGE_RETURN_BUTTON).convert()
+        self.window.blit(self.blue_button,(320,420))
+        myfont = pygame.font.SysFont("monospace", 25)
+        self.score_text = myfont.render("RETURN", 1 ,(255, 255, 255))
+        self.window.blit(self.score_text, (340, 422))
         pygame.display.flip()
+    
+    def display_move(self) :
+        self.map.display_map() # show the map for each move
+        self.map.show(self.window) # allows the display of each element
+        pygame.display.flip() # show all
 
-    def return_game(self,window) :
-        for event in pygame.event.get() :
-            if event.type == KEYDOWN :
-                if event.key == K_F1 :
-                    self.init_game()
-                    continue_game = True                                
-                    game = True
-                elif event.key == K_F2 :
-                    exit()
-                else :
-                    continue
+    def display_finish_move(self) :
+        self.map.map_array[self.character.column][self.character.line + 1] = ' '
+        self.map.map_array[self.character.column][self.character.line] = ' '
+        self.map.map_array[self.character.column][self.character.line + 1] = 'X'
 
     def play(self):      
         self.init_game()
@@ -99,13 +96,16 @@ class Game :
                         continue_game = True
                     elif event.button == 1 and event.pos[0] < 340 and event.pos[1] < 265 and event.pos[0] > 110 and event.pos[1] > 200 :
                         regle = True
+                    elif event.button == 1 and event.pos[0] < 95 and event.pos[1] < 450 and event.pos[0] > 0 and event.pos[1] > 410 :
+                        exit()
                     else :
                         continue
+
             while regle == True :
                 self.display_rule(self.window)
                 for event in pygame.event.get() :
                     if event.type == MOUSEBUTTONUP :
-                        if event.button == 1 and event.pos[0] < 450 and event.pos[1] < 450 and event.pos[0] > 220 and event.pos[1] > 380 :
+                        if event.button == 1 and event.pos[0] < 450 and event.pos[1] < 450 and event.pos[0] > 320 and event.pos[1] > 420 :
                             regle = False                            
                         else :
                             continue
@@ -122,49 +122,58 @@ class Game :
                         exit() # function that leaves the program
                     if event.type == KEYDOWN :
 
-                            if event.key == K_ESCAPE :
-                                exit()
-                            elif event.key == pygame.K_RIGHT :
-                                self.character.move(self.map, 'right', self.window) # use the move function for moving
-                                if self.character.verif_win(self.character.column,self.character.line + 1) == True :
-                                    self.win()
-                                    game = False
-                                elif self.character.verif_loose(self.character.column,self.character.line + 1) == True :
-                                    self.loose()
-                                    game = False   
-                                     
-                            elif event.key == pygame.K_LEFT :
-                                self.character.move(self.map, 'left', self.window)
-                                if self.character.verif_win(self.character.column,self.character.line - 1) == True :
-                                    self.win()
-                                    game = False
-                                elif self.character.verif_loose(self.character.column,self.character.line - 1) == True :
-                                    self.loose()
-                                    game = False                                                         
-                                 
-                            elif event.key == pygame.K_DOWN :
-                                self.character.move(self.map, 'down', self.window)
-                                if self.character.verif_win(self.character.column - 1,self.character.line) == True :
-                                    self.win()
-                                    game = False
-                                elif self.character.verif_loose(self.character.column - 1,self.character.line) == True :
-                                    self.loose()
-                                    game = False                                                              
-                                 
-                            elif event.key == pygame.K_UP :
-                                self.character.move(self.map, 'up', self.window)
-                                if self.character.verif_win(self.character.column + 1,self.character.line) == True :
-                                    self.win()
-                                    game = False
-                                elif self.character.verif_loose(self.character.column + 1,self.character.line) == True :
-                                    self.loose()
-                                    game = False                                                                 
+                        if event.key == K_ESCAPE :
+                            exit()
+                        elif event.key == pygame.K_RIGHT :
+                            self.character.move(self.map, 'right', self.window) # use the move function for moving
+                            self.display_move()
+                            if self.character.verif_win(self.character.column,self.character.line + 1) == True :
+                                self.display_finish_move()
+                                self.display_move()
+                                self.win()
+                                game = False
+                            elif self.character.verif_loose(self.character.column,self.character.line + 1) == True :
+                                self.loose()
+                                game = False
                             else :
-                                return AttributeError
-
-                            self.map.display_map() # show the map for each move
-                            self.map.show(self.window) # allows the display of each element
-                            pygame.display.flip() # show all
+                                continue
+                                  
+                        elif event.key == pygame.K_LEFT :
+                            self.character.move(self.map, 'left', self.window)
+                            self.display_move()
+                            if self.character.verif_win(self.character.column,self.character.line - 1) == True :
+                                self.win()
+                                game = False
+                            elif self.character.verif_loose(self.character.column,self.character.line - 1) == True :
+                                self.loose()
+                                game = False
+                            else :
+                                continue
+                                 
+                        elif event.key == pygame.K_DOWN :
+                            self.character.move(self.map, 'down', self.window)
+                            self.display_move()
+                            if self.character.verif_win(self.character.column - 1,self.character.line) == True :
+                                self.win()
+                                game = False
+                            elif self.character.verif_loose(self.character.column - 1,self.character.line) == True :
+                                self.loose()
+                                game = False
+                            else :
+                                continue
+                                 
+                        elif event.key == pygame.K_UP :
+                            self.character.move(self.map, 'up', self.window)
+                            self.display_move()
+                            if self.character.verif_win(self.character.column + 1,self.character.line) == True :
+                                self.win()
+                                game = False
+                            elif self.character.verif_loose(self.character.column + 1,self.character.line) == True :
+                                self.loose()
+                                game = False                                                                 
+                            else :
+                                continue
+                               
                                                     
             while game == False :
                 self.display_finish_home(self.window)
