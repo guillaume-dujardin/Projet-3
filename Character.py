@@ -22,39 +22,38 @@ class Character():
         self.map = map 
        
     def display_and_sleep(self,window) :
-        window.blit(self.score_text, (80, 180)) 
+        window.blit(self.score_text, (10, 410)) 
         pygame.display.flip() 
-        time.sleep(.600)
+        time.sleep(1)
        
     def objects(self,pos_y,pos_x, window) : 
         self.current_item_in_box = self.map.map_array[pos_y][pos_x] 
-        if self.current_item_in_box == 'e' or self.current_item_in_box == 's' or self.current_item_in_box == 'p' : 
-            print(self.current_item_in_box) 
+        if self.current_item_in_box == 'e' or self.current_item_in_box == 's' or self.current_item_in_box == 'p' :  
             self.map.score += 1 
             self.map.remove_Item(self.column, self.line) 
             if self.current_item_in_box == 'e' : 
-                myfont = pygame.font.SysFont("comicsansms", 40) 
-                self.score_text = myfont.render("ether object", 1, (0, 0, 255)) 
+                myfont = pygame.font.SysFont("comicsansms", 28) 
+                self.score_text = myfont.render("you picked up ether", 1, (0, 0, 0)) 
                 self.display_and_sleep(window)
 
             elif self.current_item_in_box == 's' : 
-                myfont = pygame.font.SysFont("comicsansms", 40) 
-                self.score_text = myfont.render("needle object", 1, (0, 0, 255)) 
+                myfont = pygame.font.SysFont("comicsansms", 28) 
+                self.score_text = myfont.render("you picked up needle", 1, (0, 0, 0)) 
                 self.display_and_sleep(window)
 
             elif self.current_item_in_box == 'p' : 
-                myfont = pygame.font.SysFont("comicsansms", 40) 
-                self.score_text = myfont.render("plastic_tube object", 1, (0, 0, 255)) 
+                myfont = pygame.font.SysFont("comicsansms", 28) 
+                self.score_text = myfont.render("you picked up plastic_tube", 1, (0, 0, 0)) 
                 self.display_and_sleep(window)
             else :
                 return AttributeError
        
     def verif_win(self,pos_y,pos_x) : 
-        if self.map.map_array[pos_y][pos_x] == 'O' and self.map.score == 3 :            
+        if self.map.map_array[pos_y][pos_x] == 'O' and self.map.score == 3 :
             return True 
        
     def verif_loose(self,pos_y,pos_x): 
-        if self.map.map_array[pos_y][pos_x] == 'O' and self.map.score < 3 : 
+        if self.map.map_array[pos_y][pos_x] == 'O' and self.map.score < 3 :
             return True 
        
     def tap_wall(self, window): 
@@ -117,24 +116,19 @@ class Character():
         self.direction = self.position
        
     def move(self, map, direction, window) : # Displacement function
-
         self.initial(map)
-
         if direction == 'right' : # if the direction argument is 'right'
             if self.line < (number_of_square - 1) : # if line is less than the number of squares - 1
                 self.objects(self.column,self.line + 1, window) 
                 self.move_tap_r(window,map)
-
         elif direction == 'left' : 
             if self.line > 0 : 
                 self.objects(self.column,self.line - 1, window) 
                 self.move_tap_l(window,map)
-
         elif direction == 'up' :
             if self.column > 0 :
                 self.objects(self.column - 1,self.line, window)
                 self.move_tap_u(window,map)
-
         elif direction == 'down' :
             if self.column < (number_of_square - 1) :
                 self.objects(self.column + 1,self.line, window)
