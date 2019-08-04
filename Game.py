@@ -83,6 +83,32 @@ class Game :
         self.map.map_array[self.character.column][self.character.line] = ' '
         self.map.map_array[self.character.column][self.character.line + 1] = 'X'
 
+    def move_display_right(self) :
+        self.character.move(self.map, 'right', self.window) # use the move function for moving
+        self.display_move()
+
+    def move_display_left(self) :
+        self.character.move(self.map, 'left', self.window) # use the move function for moving
+        self.display_move()
+
+    def move_display_down(self) :
+        self.character.move(self.map, 'down', self.window) # use the move function for moving
+        self.display_move()
+
+    def move_display_up(self) :
+        self.character.move(self.map, 'up', self.window) # use the move function for moving
+        self.display_move()
+
+    def display_right(self) :
+        self.display_finish_move()
+        self.display_move()
+        self.win()
+
+    def place_init_display(self) :
+        self.map.place_Items() # place the objects in the labyrinth
+        self.initialisation() # intializes the pygame values
+        self.map.display_map() # show the map in console
+
     def play(self):      
         self.init_game()
         self.initialisation() # intializes the pygame values
@@ -111,9 +137,7 @@ class Game :
                             continue
                           
         while continue_game :
-            self.map.place_Items() # place the objects in the labyrinth
-            self.initialisation() # intializes the pygame values
-            self.map.display_map() # show the map in console
+            self.place_init_display()
             game = True
             while game == True :
 
@@ -125,12 +149,9 @@ class Game :
                         if event.key == K_ESCAPE :
                             exit()
                         elif event.key == pygame.K_RIGHT :
-                            self.character.move(self.map, 'right', self.window) # use the move function for moving
-                            self.display_move()
+                            self.move_display_right()
                             if self.character.verif_win(self.character.column,self.character.line + 1) == True :
-                                self.display_finish_move()
-                                self.display_move()
-                                self.win()
+                                self.display_right()
                                 game = False
                             elif self.character.verif_loose(self.character.column,self.character.line + 1) == True :
                                 self.loose()
@@ -139,8 +160,7 @@ class Game :
                                 continue
                                   
                         elif event.key == pygame.K_LEFT :
-                            self.character.move(self.map, 'left', self.window)
-                            self.display_move()
+                            self.move_display_left()
                             if self.character.verif_win(self.character.column,self.character.line - 1) == True :
                                 self.win()
                                 game = False
@@ -151,8 +171,7 @@ class Game :
                                 continue
                                  
                         elif event.key == pygame.K_DOWN :
-                            self.character.move(self.map, 'down', self.window)
-                            self.display_move()
+                            self.move_display_down()
                             if self.character.verif_win(self.character.column - 1,self.character.line) == True :
                                 self.win()
                                 game = False
@@ -163,8 +182,7 @@ class Game :
                                 continue
                                  
                         elif event.key == pygame.K_UP :
-                            self.character.move(self.map, 'up', self.window)
-                            self.display_move()
+                            self.move_display_up()
                             if self.character.verif_win(self.character.column + 1,self.character.line) == True :
                                 self.win()
                                 game = False
