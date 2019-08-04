@@ -9,7 +9,7 @@ class Map :
     def __init__(self) :
         self.map_array = [] # the labyrinth
         self.score = 0
-        self.score_text = ''
+        self.score_text = '' # Initializes the variables
 
     def create_map(self,filename) : # function to create the map
         try :
@@ -19,9 +19,9 @@ class Map :
 
         except FileNotFoundError : # if there is a file error
             print("Couldn't open map file \"" + filename + "\"")
-            exit()
+            exit() # Open the labyrinth file and add to the variable each line one by one
 
-    def show(self,window) : # function that sets each photo to a variable
+    def show(self,window) :
         background = pygame.image.load(IMAGE_BACKGROUND).convert()
         wall = pygame.image.load(IMAGE_WALL).convert()
         finish = pygame.image.load(IMAGE_GUARDIAN).convert_alpha()
@@ -56,14 +56,14 @@ class Map :
                     window.blit(background, (x,y))
                 num_case += 1
             num_line += 1
-        window.blit(self.score_text, (93, 5)) # we display the score
+        window.blit(self.score_text, (93, 5)) # function that sets each photo to a variable
 
-    def display_map(self) : # display function of the console board for testing
+    def display_map(self) :
         i = 0
         for line in self.map_array :
             for column in line :
                 print(column, end = "")
-            print()
+            print() # display function of the console board for testing
 
     def place_Items(self) : # function that defines the objects in our labyrinth
         structure_items = ['e', 's', 'p']
@@ -76,13 +76,13 @@ class Map :
                 x = self.get_Random_Coordinates()
                 y = self.get_Random_Coordinates()
 
-            self.map_array[x][y] = item
+            self.map_array[x][y] = item # Function that places objects in the maze
 
     def check_If_Valid(self, x, y) : # function to test if the position is empty
         if (self.map_array[x][y]) == ' ' :
             return True
         else :
-            return False
+            return False # Check if a position is valid
 
     def get_Random_Coordinates(self) : # function that recovers a random number
         return random.randint(1, number_of_square - 1)
@@ -93,9 +93,9 @@ class Map :
     def to_Win(self, window) : # function that displays the score and "win"
         myfont = pygame.font.SysFont("comicsansms", 40)
         self.score_text = myfont.render("Victory!!", 1, (0, 0, 255))
-        window.blit(self.score_text, (130, 180))
+        window.blit(self.score_text, (130, 180)) # shows the pygame victory
 
     def to_Lose(self, window) : # function that displays the score and "you are dead"
         myfont = pygame.font.SysFont("comicsansms", 40)
         self.score_text = myfont.render("You are dead !", 1, (0, 0, 255))
-        window.blit(self.score_text, (110, 180))
+        window.blit(self.score_text, (110, 180)) # show defeat pygame
