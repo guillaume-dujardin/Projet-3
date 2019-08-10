@@ -30,18 +30,18 @@ class Character():
             self.map.score += 1 
             self.map.remove_Item(self.column, self.line) 
             if self.current_item_in_box == 'e' : 
-                myfont = pygame.font.SysFont("comicsansms", 28) 
-                self.score_text = myfont.render("you picked up ether", 1, (0, 0, 0)) 
+                myfont = pygame.font.SysFont("comicsansms", 26) 
+                self.score_text = myfont.render("you picked up ether", 1, (255, 0, 0)) 
                 self.display_and_sleep(window)
 
             elif self.current_item_in_box == 's' : 
-                myfont = pygame.font.SysFont("comicsansms", 28) 
-                self.score_text = myfont.render("you picked up needle", 1, (0, 0, 0)) 
+                myfont = pygame.font.SysFont("comicsansms", 26) 
+                self.score_text = myfont.render("you picked up needle", 1, (255, 0, 0)) 
                 self.display_and_sleep(window)
 
             elif self.current_item_in_box == 'p' : 
-                myfont = pygame.font.SysFont("comicsansms", 28) 
-                self.score_text = myfont.render("you picked up plastic_tube", 1, (0, 0, 0)) 
+                myfont = pygame.font.SysFont("comicsansms", 26) 
+                self.score_text = myfont.render("you picked up plastic_tube", 1, (255, 0, 0)) 
                 self.display_and_sleep(window)
             else :
                 return AttributeError # Function that adds 1 to the score to each objects
@@ -56,7 +56,7 @@ class Character():
        
     def tap_wall(self, window): 
         myfont = pygame.font.SysFont("comicsansms", 40) 
-        self.score_text = myfont.render("Ouch! It hurts!", 1, (0, 0, 255)) 
+        self.score_text = myfont.render("Ouch! It hurts!", 1, (0, 0, 0)) 
         window.blit(self.score_text, (80, 180)) 
         pygame.display.flip() 
         time.sleep(.500) # Display a pygame message if you touch a wall
@@ -86,28 +86,28 @@ class Character():
         self.x = self.line * square_size 
        
     def move_tap_r(self,window,map) :
-        if self.map.map_array[self.column][self.line + 1] != '#' : # if the character's position in the maze is different from '#'
+        if self.map.map_array[self.column][self.line + 1] != '#' and self.map.map_array[self.column][self.line + 1] != 'N' : # if the character's position in the maze is different from '#'
             self.move_r(map) 
         else :
             self.tap_wall(window)
         self.direction = self.position # if the displacement is not equal to a wall, the displacement is executed
        
     def move_tap_l(self,window,map) :
-        if self.map.map_array[self.column][self.line - 1] != '#' : 
+        if self.map.map_array[self.column][self.line - 1] != '#' and self.map.map_array[self.column][self.line - 1] != 'N' : 
             self.move_l(map)
         else :
             self.tap_wall(window)
         self.direction = self.position 
        
     def move_tap_u(self,window,map) :
-        if self.map.map_array[self.column - 1][self.line] != '#' :
+        if self.map.map_array[self.column - 1][self.line] != '#' and self.map.map_array[self.column - 1][self.line] != 'N' :
             self.move_u(map)
         else :
             self.tap_wall(window)
         self.direction = self.position 
        
     def move_tap_d(self,window,map) :
-        if self.map.map_array[self.column + 1][self.line] != '#' :
+        if self.map.map_array[self.column + 1][self.line] != '#' and self.map.map_array[self.column + 1][self.line] != 'N' :
             self.move_d(map)
         else :
             self.tap_wall(window)
