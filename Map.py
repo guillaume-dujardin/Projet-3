@@ -25,14 +25,14 @@ class Map :
         background = pygame.image.load(IMAGE_BACKGROUND).convert()
         wall = pygame.image.load(IMAGE_WALL).convert()
         finish = pygame.image.load(IMAGE_GUARDIAN).convert_alpha()
-        ether = pygame.image.load(IMAGE_ETHER).convert()
-        needle = pygame.image.load(IMAGE_NEEDLE).convert()
-        plastic = pygame.image.load(IMAGE_PLASTIC_TUBE).convert()
+        ether = pygame.image.load(IMAGE_ETHER).convert_alpha()
+        needle = pygame.image.load(IMAGE_NEEDLE).convert_alpha()
+        plastic = pygame.image.load(IMAGE_PLASTIC_TUBE).convert_alpha()
         icone = pygame.image.load(IMAGE_ICONE).convert()
-
+        blood_wall = pygame.image.load(IMAGE_BLOOD_WALL).convert()
         if (self.score <= 3) : # if the score is less than or equal to 3
-            myfont = pygame.font.SysFont("monospace", 22) # myfont will be equal to a minivan writing font
-            self.score_text = myfont.render("My score : " + str(self.score), 1 , (23, 216, 216)) # for the score
+            myfont = pygame.font.SysFont("monospace", 24) # myfont will be equal to a minivan writing font
+            self.score_text = myfont.render("My score : " + str(self.score), 1 , (255, 255, 255)) # for the score
 
         num_line = 0
         for line in self.map_array : # for each line in map_array
@@ -54,9 +54,11 @@ class Map :
                     window.blit(plastic, (x,y))
                 elif sprite == ' ' :
                     window.blit(background, (x,y))
+                elif sprite == 'N' :
+                    window.blit(blood_wall, (x,y))
                 num_case += 1
             num_line += 1
-        window.blit(self.score_text, (93, 5)) # function that sets each photo to a variable
+        window.blit(self.score_text, (55, 2)) # function that sets each photo to a variable
 
     def display_map(self) :
         i = 0
@@ -92,10 +94,10 @@ class Map :
 
     def to_Win(self, window) : # function that displays the score and "win"
         myfont = pygame.font.SysFont("comicsansms", 40)
-        self.score_text = myfont.render("Victory!!", 1, (0, 0, 255))
+        self.score_text = myfont.render("Victory!!", 1, (0, 255, 0))
         window.blit(self.score_text, (130, 180)) # shows the pygame victory
 
     def to_Lose(self, window) : # function that displays the score and "you are dead"
         myfont = pygame.font.SysFont("comicsansms", 40)
-        self.score_text = myfont.render("You are dead !", 1, (0, 0, 255))
+        self.score_text = myfont.render("You are dead !", 1, (255, 0, 0))
         window.blit(self.score_text, (110, 180)) # show defeat pygame
