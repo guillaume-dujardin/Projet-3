@@ -67,9 +67,9 @@ class Game :
         self.window.blit(self.rule,(0,0))
         self.blue_button = pygame.image.load(IMAGE_RETURN_BUTTON).convert()
         self.window.blit(self.blue_button,(320,420))
-        myfont = pygame.font.SysFont("monospace", 25)
-        self.score_text = myfont.render("RETURN", 1 ,(255, 255, 255))
-        self.window.blit(self.score_text, (340, 422))
+        myfont = pygame.font.SysFont("monospace", 23)
+        self.score_text = myfont.render("MAIN MENU", 1 ,(255, 255, 255))
+        self.window.blit(self.score_text, (325, 422))
         pygame.display.flip() # Show the rules of the game
     
     def display_move(self) :
@@ -130,7 +130,7 @@ class Game :
                     else :
                         continue
 
-            while regle == True :
+            while regle :
                 self.display_rule(self.window)
                 for event in pygame.event.get() :
                     if event.type == QUIT :
@@ -154,7 +154,6 @@ class Game :
                     if event.type == QUIT :
                         exit()
                     if event.type == KEYDOWN :
-
                         if event.key == K_ESCAPE :
                             exit()
                         elif event.key == pygame.K_RIGHT :
@@ -211,7 +210,7 @@ class Game :
                             continue_game = True                                
                             game = True
                         elif event.key == K_F2 :
-                            exit()
+                            exit()                                                    
                         else :
                             continue # Displays the complete part compose function
 
