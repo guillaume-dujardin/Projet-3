@@ -6,3 +6,4 @@ La sortie est surveillée par un garde du corps dont la coiffure ferait pâlir T
 Pour le distraire,il vous faut réunir les éléments suivants (dispersés dans le labyrinthe) 
 : une aiguille, un petit tube en plastique et de l'éther.
 Ils permettront à MacGyver de créer une seringue et d'endormir notre garde.
+
