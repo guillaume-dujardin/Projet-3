@@ -210,7 +210,7 @@ class Game :
                             continue_game = True                                
                             game = True
                         elif event.key == K_F2 :
-                            exit()                                                    
+                            exit()                                                  
                         else :
                             continue # Displays the complete part compose function
 
