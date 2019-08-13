@@ -7,3 +7,8 @@ Pour le distraire,il vous faut réunir les éléments suivants (dispersés dans 
 : une aiguille, un petit tube en plastique et de l'éther.
 Ils permettront à MacGyver de créer une seringue et d'endormir notre garde.
 
+Mon application est super
+clonez le repo sur votre machine,
+et installer les dépendances du requirements.txt. 
+Puis lancez main.py. 
+Et profitez du jeu
