@@ -107,6 +107,55 @@ class Game :
         self.map.place_Items() # place the objects in the labyrinth
         self.initialisation() # intializes the pygame values
         self.map.display_map() # Show the map in console
+    
+    def key_right(self) :
+        self.move_display_right()
+        if self.character.verif_win(self.character.column,self.character.line + 1) == True :
+            self.display_right()
+            return False
+        elif self.character.verif_loose(self.character.column,self.character.line + 1) == True :
+            self.loose()
+            return False
+      
+
+    def key_left(self) :
+        self.move_display_left()
+        if self.character.verif_win(self.character.column,self.character.line - 1) == True :
+            self.win()
+            return False
+        elif self.character.verif_loose(self.character.column,self.character.line - 1) == True :
+            self.loose()
+            return False
+       
+    
+    def key_down(self) :
+        self.move_display_down()
+        if self.character.verif_win(self.character.column - 1,self.character.line) == True :
+            self.win()
+            return False
+        elif self.character.verif_loose(self.character.column - 1,self.character.line) == True :
+            self.loose()
+            return False
+    
+
+    def key_up(self) :
+        self.move_display_up()
+        if self.character.verif_win(self.character.column + 1,self.character.line) == True :
+            self.win()
+            return False
+        elif self.character.verif_loose(self.character.column + 1,self.character.line) == True :
+            self.loose()
+            return False                                                                 
+        
+
+    def key_f1_f2(self) :
+        self.display_finish_home(self.window)
+        for event in pygame.event.get() :
+            if event.type == KEYDOWN :
+                if event.key == K_F1 :
+                    return True
+                elif event.key == K_F2 :
+                    exit() 
 
     def game(self) :
         continue_game = False
@@ -147,8 +196,8 @@ class Game :
                           
         while continue_game :
             self.place_init_display()
-            game = True
-            while game == True :
+            play_game = True
+            while play_game == True :
 
                 for event in pygame.event.get() : # for each pygame event
                     if event.type == QUIT :
@@ -157,62 +206,29 @@ class Game :
                         if event.key == K_ESCAPE :
                             exit()
                         elif event.key == pygame.K_RIGHT :
-                            self.move_display_right()
-                            if self.character.verif_win(self.character.column,self.character.line + 1) == True :
-                                self.display_right()
-                                game = False
-                            elif self.character.verif_loose(self.character.column,self.character.line + 1) == True :
-                                self.loose()
-                                game = False
-                            else :
-                                continue
+                            if self.key_right() == False :
+                                play_game = False
                                   
                         elif event.key == pygame.K_LEFT :
-                            self.move_display_left()
-                            if self.character.verif_win(self.character.column,self.character.line - 1) == True :
-                                self.win()
-                                game = False
-                            elif self.character.verif_loose(self.character.column,self.character.line - 1) == True :
-                                self.loose()
-                                game = False
-                            else :
-                                continue
+                            if self.key_left() == False :
+                                play_game = False
                                  
                         elif event.key == pygame.K_DOWN :
-                            self.move_display_down()
-                            if self.character.verif_win(self.character.column - 1,self.character.line) == True :
-                                self.win()
-                                game = False
-                            elif self.character.verif_loose(self.character.column - 1,self.character.line) == True :
-                                self.loose()
-                                game = False
-                            else :
-                                continue
-                                 
+                            if self.key_down() == False :
+                                play_game = False
+
                         elif event.key == pygame.K_UP :
-                            self.move_display_up()
-                            if self.character.verif_win(self.character.column + 1,self.character.line) == True :
-                                self.win()
-                                game = False
-                            elif self.character.verif_loose(self.character.column + 1,self.character.line) == True :
-                                self.loose()
-                                game = False                                                                 
-                            else :
-                                continue
-                               
+                            if self.key_up() == False :
+                                play_game = False
                                                     
-            while game == False :
-                self.display_finish_home(self.window)
-                for event in pygame.event.get() :
-                    if event.type == KEYDOWN :
-                        if event.key == K_F1 :
-                            self.init_game()
-                            continue_game = True                                
-                            game = True
-                        elif event.key == K_F2 :
-                            exit()                                                  
-                        else :
-                            continue # Displays the complete part compose function
+            while play_game == False :
+                if self.key_f1_f2() == True :
+                    self.init_game()
+                    play_game = True
+                    continue_game = True
+                    
+                
+                # Displays the complete part compose function
 
     def play(self):      
         self.init_game()
