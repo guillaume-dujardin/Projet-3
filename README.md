@@ -9,6 +9,6 @@ Ils permettront à MacGyver de créer une seringue et d'endormir notre garde.
 
 Mon application est super
 clonez le repo sur votre machine,
-et installer les dépendances du requirements.txt. 
-Puis lancez main.py. 
+et installer les dépendances du requirements.txt. (pip install -r requirements.txt) 
+Puis lancez main.py. (python main.py) 
 Et profitez du jeu
