@@ -24,12 +24,12 @@ class Game :
         pygame.display.flip() # Initialize pygame and create the first window of the game
         
     def win(self) :
-        self.map.to_Win(self.window)
+        self.map.to_win(self.window)
         pygame.display.flip()
         time.sleep(2) # Shows the victory of the game
 
     def loose(self) :
-        self.map.to_Lose(self.window)
+        self.map.to_loose(self.window)
         pygame.display.flip()
         time.sleep(2) # Shows the defeat of the game
 
@@ -104,7 +104,7 @@ class Game :
         self.win() # Displays the end move when the guard is asleep and the victory
 
     def place_init_display(self) :
-        self.map.place_Items() # place the objects in the labyrinth
+        self.map.place_items() # place the objects in the labyrinth
         self.initialisation() # intializes the pygame values
         self.map.display_map() # Show the map in console
     
@@ -156,10 +156,33 @@ class Game :
                     return True
                 elif event.key == K_F2 :
                     exit() 
+    
+    def manage_rules(self, event, rules) :
+        while rules :
+            self.display_rule(self.window)
+            for event in pygame.event.get() :
+                if event.type == QUIT :
+                    exit()
+                if event.type == KEYDOWN :
+                    if event.key == K_ESCAPE :
+                        exit()
+                if event.type == MOUSEBUTTONUP :
+                    if event.button == 1 and event.pos[0] < 450 and event.pos[1] < 450 and event.pos[0] > 320 and event.pos[1] > 420 :
+                        rules = False                            
+                    else :
+                        continue
+        return rules
+    def manage_finish(self,play_game, continue_game) :
+        while play_game == False :
+            if self.key_f1_f2() == True :
+                self.init_game()
+                play_game = True
+                continue_game = True
+        return play_game, continue_game
 
     def game(self) :
         continue_game = False
-        regle = False
+        rules = False
         while continue_game == False :
             self.display_home(self.window)
             for event in pygame.event.get() :
@@ -173,26 +196,15 @@ class Game :
                     if event.button == 1 and event.pos[0] < 340 and event.pos[1] < 370 and event.pos[0] > 110 and event.pos[1] > 300 :
                         continue_game = True
                     elif event.button == 1 and event.pos[0] < 340 and event.pos[1] < 265 and event.pos[0] > 110 and event.pos[1] > 200 :
-                        regle = True
+                        rules = True
                     elif event.button == 1 and event.pos[0] < 95 and event.pos[1] < 450 and event.pos[0] > 0 and event.pos[1] > 410 :
                         exit()
                     else :
                         continue
 
-            while regle :
-                self.display_rule(self.window)
-                for event in pygame.event.get() :
-                    if event.type == QUIT :
-                        exit()
-                    if event.type == KEYDOWN :
-
-                        if event.key == K_ESCAPE :
-                            exit()
-                    if event.type == MOUSEBUTTONUP :
-                        if event.button == 1 and event.pos[0] < 450 and event.pos[1] < 450 and event.pos[0] > 320 and event.pos[1] > 420 :
-                            regle = False                            
-                        else :
-                            continue
+            rules = self.manage_rules(event, rules)
+            
+            
                           
         while continue_game :
             self.place_init_display()
@@ -221,11 +233,7 @@ class Game :
                             if self.key_up() == False :
                                 play_game = False
                                                     
-            while play_game == False :
-                if self.key_f1_f2() == True :
-                    self.init_game()
-                    play_game = True
-                    continue_game = True
+            finish = self.manage_finish(play_game, continue_game)
                     
                 
                 # Displays the complete part compose function
