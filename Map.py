@@ -67,37 +67,37 @@ class Map :
                 print(column, end = "")
             print() # display function of the console board for testing
 
-    def place_Items(self) : # function that defines the objects in our labyrinth
+    def place_items(self) : # function that defines the objects in our labyrinth
         structure_items = ['e', 's', 'p']
         
         for item in structure_items : # for each two variable object are assign random number
-            x = self.get_Random_Coordinates()
-            y = self.get_Random_Coordinates()
+            x = self.get_random_coordinates()
+            y = self.get_random_coordinates()
 
-            while (self.check_If_Valid(x, y) == False) : # as long as the position is valid
-                x = self.get_Random_Coordinates()
-                y = self.get_Random_Coordinates()
+            while (self.check_if_valid(x, y) == False) : # as long as the position is valid
+                x = self.get_random_coordinates()
+                y = self.get_random_coordinates()
 
             self.map_array[x][y] = item # Function that places objects in the maze
 
-    def check_If_Valid(self, x, y) : # function to test if the position is empty
+    def check_if_valid(self, x, y) : # function to test if the position is empty
         if (self.map_array[x][y]) == ' ' :
             return True
         else :
             return False # Check if a position is valid
 
-    def get_Random_Coordinates(self) : # function that recovers a random number
+    def get_random_coordinates(self) : # function that recovers a random number
         return random.randint(1, number_of_square - 1)
 
     def remove_Item(self, x, y) : # function that puts back the background of the decor instead of the photos
         self.map_array[x][y] = ' '
 
-    def to_Win(self, window) : # function that displays the score and "win"
+    def to_win(self, window) : # function that displays the score and "win"
         myfont = pygame.font.SysFont("comicsansms", 40)
         self.score_text = myfont.render("Victory!!", 1, (0, 255, 0))
         window.blit(self.score_text, (130, 180)) # shows the pygame victory
 
-    def to_Lose(self, window) : # function that displays the score and "you are dead"
+    def to_loose(self, window) : # function that displays the score and "you are dead"
         myfont = pygame.font.SysFont("comicsansms", 40)
         self.score_text = myfont.render("You are dead !", 1, (255, 0, 0))
         window.blit(self.score_text, (110, 180)) # show defeat pygame
